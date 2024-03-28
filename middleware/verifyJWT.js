@@ -2,25 +2,29 @@ const JWTServices=require('../services/JWTServices')
 
 const verifyJWT=(req,res,next)=>{
     const authHeader=req.headers.authorization || req.headers.Authorization
-    if(!authHeader){
-        const error={
-            status:401,
-            message:"unuthorized"
-        }
-        next(error)
-    }
+ 
 
-    if(!authHeader.startsWith('Bearer')){
+    if(authHeader==undefined || !authHeader.startsWith('Bearer')){
         const error={
             status:401,
-            message:"unuthorized"
+            message:"Token Not provided please add token to the request header"
         }
         next(error)
     }
     
     const token=authHeader.split(' ')[1]
-
-    const decode=JWTServices.verifyAccessToken(token);
+   
+    let decode;
+    try {
+        decode=JWTServices.verifyAccessToken(token);
+    } catch (error) {
+        let err={
+            status:401,
+            message:"Token is expired Please loggined again"
+        }
+      return  next(err);
+    }
+   
 
    
    

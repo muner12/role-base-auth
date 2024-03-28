@@ -35,7 +35,7 @@ const login=async(req,res,next)=>{
         const roles=Object.values(fondUser.roles).filter(Boolean);
 
         const refreshToken=JWTServices.refreshToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '1d');
-        const accessToken=JWTServices.accessToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '1h');
+        const accessToken=JWTServices.accessToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '30s');
         fondUser.refreshToken=refreshToken
 
         const result=await fondUser.save();
