@@ -2,6 +2,13 @@ const JWTServices=require('../services/JWTServices')
 
 const verifyJWT=(req,res,next)=>{
     const authHeader=req.headers.authorization || req.headers.Authorization
+    if(!authHeader){
+        const error={
+            status:401,
+            message:"unuthorized"
+        }
+        next(error)
+    }
 
     if(!authHeader.startsWith('Bearer')){
         const error={
