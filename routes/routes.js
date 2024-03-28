@@ -11,4 +11,8 @@ router.route("/users").post(verifyRols(ROLS_LIST.Admin,ROLS_LIST.User),(req,res,
     res.status(201).json({"message":"protected routes accessable for only logged in User!"})
 })
 
+router.route("/admin").post(verifyRols(ROLS_LIST.Admin),(req,res,next)=>{
+    res.status(201).json({"message":"protected routes accessable for only admin!"})
+})
+
 module.exports=router
