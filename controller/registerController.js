@@ -1,6 +1,10 @@
 const bcrypt=require('bcrypt');
 const Joi=require('joi');
 
+const RoleUser=require('../model/registerModal');
+
+const UserDTO=require('../dto/userDto');
+
 const  register=async(req,res,next)=>{
 
     const validationSchema=Joi.object({
@@ -16,6 +20,58 @@ const  register=async(req,res,next)=>{
     if(error){
       return  next(error)
     }
+
+    const {name,username,phone,email,password}=req.body
+
+    try {
+
+    const userNameExist= await RoleUser.findOne({username}).exec();
+    const emailExist=await RoleUser.findOne({email}).exec();
+
+    if(userNameExist){
+        let error={
+            status:409,
+            message:"username already exist, please try another one"
+        }
+        return next(error)
+    }
+    if(emailExist){
+        let error={
+            status:409,
+            message:"email already exist, Please try another one"
+        }
+        return next(error)
+    }
+
+
+
+    } catch (error) {
+        next(error)
+    }
+    
+
+        
+    try {
+        const hashedPwd=await bcrypt.hash(password,10);
+    const user=new RoleUser({
+        name,
+        username,
+        email,
+        phone,
+        password:hashedPwd
+    });
+    const newUser=await user.save();
+    const userDto=new UserDTO(newUser);
+
+    res.status(201).json({Result:userDto,auth:true})
+
+    } catch (error) {
+        next(error)
+        
+    }
+
+    
+
 
 
 }
