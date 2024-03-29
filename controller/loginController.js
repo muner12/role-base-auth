@@ -41,6 +41,8 @@ const login=async(req,res,next)=>{
         const result=await fondUser.save();
         const userdto=new UserDTO(result);
         res.cookie('jwt',refreshToken,{httpOnly:true,secure:true,sameSite:'None',maxAge:1000*60*60*24});
+        res.cookie('jwt',accessToken,{httpOnly:true,secure:true,sameSite:'None',maxAge:1000*60*60});
+
         res.status(201).json({"userInfo":userdto,"roles":roles,"accessToken":accessToken});
 
        

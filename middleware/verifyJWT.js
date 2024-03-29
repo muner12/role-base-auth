@@ -11,7 +11,7 @@ const verifyJWT=(req,res,next)=>{
         }
         next(error)
     }
-    
+  
     const token=authHeader.split(' ')[1]
    
     let decode;

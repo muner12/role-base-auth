@@ -9,9 +9,9 @@ const verifyRols=(...allowedRols)=>{
         next(error)
     }
     const rolesArray=[...allowedRols];
-    console.log(rolesArray,req.roles)
+   
     const result = req.roles.map(role => rolesArray.includes(role)).find(val => val === true);
-    console.log("verify role",req.roles.map(role=>rolesArray.includes(role))) 
+    
     if(!result){
         let error={
             status:401,
