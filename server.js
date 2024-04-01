@@ -1,5 +1,6 @@
 const express=require('express');
-const { test } = require('media-typer');
+const  router=require('./routes/index');
+const dotenv=require('dotenv').config();
 
 
 
@@ -7,6 +8,10 @@ const { test } = require('media-typer');
 
 const app=express();
 const PORT=process.env.PORT || 5000;
+app.use(express.json());
+app.use('/api',router);
+
+
 
 app.listen(PORT,()=>{
     
