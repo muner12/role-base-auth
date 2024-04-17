@@ -6,6 +6,7 @@ const JWTServices=require('../services/JWTServices');
 const UserDTO=require('../dto/userDto');
 const refreshHandler=async(req,res,next)=>{
     let cookie=req.cookies;
+
     if(!cookie.jwt){
         let error={
             status:401,
@@ -15,16 +16,24 @@ const refreshHandler=async(req,res,next)=>{
     }
 
     let refreshToken=cookie.jwt;
+
     const fondUser=await RoleUser.findOne({refreshToken}).exec();
-    if(!fondUser){
+
+    if(!fondUser || fondUser==null){
         let error={
             status:401,
             message:"unauthorized Please Loggin"
         }
+     return   next(error)
+    }
+    let decode;
+    
+    try {
+        
+        decode=JWTServices.verifyRefreshToken(refreshToken);
+    } catch (error) {
         next(error)
     }
-
-    let decode=JWTServices.verifyRefreshToken(refreshToken);
 
     if(decode.userInfo.username!==fondUser.username){
         const error={

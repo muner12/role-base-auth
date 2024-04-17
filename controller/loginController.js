@@ -122,8 +122,8 @@ let studentLogin=async(req,res,next)=>{
 
     const match=await bcrypt.compare(password,fondUser.password)
     if(match){
-        const roles=fondUser.roles
-
+        let roles=fondUser.roles
+        roles=[roles];
         const refreshToken=JWTServices.refreshToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '1d');
         const accessToken=JWTServices.accessToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '1h');
         fondUser.refreshToken=refreshToken
@@ -205,8 +205,8 @@ const teacherLogin=async(req,res,next)=>{
 
     const match=await bcrypt.compare(password,fondUser.password)
     if(match){
-        const roles=fondUser.roles
-
+        let roles=fondUser.roles
+        roles=[roles];
         const refreshToken=JWTServices.refreshToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '1d');
         const accessToken=JWTServices.accessToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '1h');
         fondUser.refreshToken=refreshToken

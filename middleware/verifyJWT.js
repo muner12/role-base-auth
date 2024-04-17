@@ -2,7 +2,7 @@ const JWTServices=require('../services/JWTServices')
 
 const verifyJWT=(req,res,next)=>{
     const authHeader=req.headers.authorization || req.headers.Authorization
- 
+
 
     if(authHeader==undefined || !authHeader.startsWith('Bearer')){
         const error={

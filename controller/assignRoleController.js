@@ -7,7 +7,7 @@ const assignRoleHandler=async(req,res,next)=>{
         const data=req.body
         const cookie=req.cookies;
         //check jwt in cookies
-        
+        console.log(data)
         if(!cookie.jwt){
         let error={
             status:401,

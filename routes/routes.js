@@ -17,7 +17,7 @@ router.route("/admin").post(verifyRols(ROLS_LIST.Admin),(req,res,next)=>{
     res.status(201).json({"message":"protected routes accessable for only admin!"})
 });
 //Login Teacher Route
-router.route("/viewStudentByTeacher").post(verifyRols(ROLS_LIST.Teacher),viewStudentByTeacher.viewStudentByTeacher);
+router.route("/viewStudentByTeacher").post(verifyRols(ROLS_LIST.Teacher,ROLS_LIST.SuperAdmin),viewStudentByTeacher.viewStudentByTeacher);
 //super Admin Routes
 router.route('/allUserData').post(verifyRols(ROLS_LIST.SuperAdmin),ViewUserController.viewAllUsersData);
 
