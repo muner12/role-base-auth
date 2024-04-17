@@ -13,7 +13,7 @@ const PORT=process.env.PORT || 8000
 dbConnect();
 app.get('/',(req,res)=>{
 
-    res.status(201).json({"MESSAGE":"GET ROUTE"})
+    res.status(201).json({"MESSAGE":"GET API FETCHED SUCCESSFULLY"});
 })
 app.use(epxress.json());
 
