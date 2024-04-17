@@ -5,6 +5,7 @@ const mongoose=require('mongoose');
 const errorHandlerMiddleware=require('./middleware/errorHandler');
 const cookieParser=require('cookie-parser');
 const verifyJWT=require('./middleware/verifyJWT');
+const notFoundRouteHandler=require("./middleware/notFoundRouteHandler");
 
 const app=epxress();
 
@@ -22,6 +23,8 @@ app.use('/api',require('./routes/register'));
 app.use('/api',require('./routes/login'));
 
 app.use('/api',require('./routes/refresh'));
+
+
 
 app.use(verifyJWT);
 

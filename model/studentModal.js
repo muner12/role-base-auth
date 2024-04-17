@@ -1,7 +1,7 @@
 
 const mongoose=require('mongoose');
 
-const AuthUserSchema=new mongoose.Schema({
+const studentSchema=new mongoose.Schema({
 name:{
     type:String,
     required:true
@@ -23,13 +23,8 @@ password:{
     required:true
 },
 roles:{
-    user:{
-        type:Number,
-        default:2001
-    },
-    Editor:Number,
-    Admin:Number,
-    SuperAdmin:Number
+    type:String,
+    required:true
 },
 refreshToken:{
     type:String
@@ -40,6 +35,6 @@ refreshToken:{
 
 
 
-const RoleUser=mongoose.model('RoleUser',AuthUserSchema);
+const Student=mongoose.model('Student',studentSchema);
 
-module.exports=RoleUser
+module.exports=Student

@@ -9,7 +9,17 @@ const verifyRols=(...allowedRols)=>{
         next(error)
     }
     const rolesArray=[...allowedRols];
-   
+    console.log(req.roles,rolesArray)
+    if(req.roles!==rolesArray[0]){
+        let error={
+            status:401,
+            message:"unauthorized for this route"
+        }
+        next(error)
+    }else{
+        next();
+        return ;
+    }
     const result = req.roles.map(role => rolesArray.includes(role)).find(val => val === true);
     
     if(!result){
