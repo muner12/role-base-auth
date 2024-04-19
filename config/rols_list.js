@@ -4,6 +4,7 @@ const ROLS_LIST={
     "Editor":4001,
     "SuperAdmin":5001,
     "Teacher":"Teacher",
+    "Student":"Student",
 }
 
 

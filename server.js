@@ -6,7 +6,7 @@ const errorHandlerMiddleware=require('./middleware/errorHandler');
 const cookieParser=require('cookie-parser');
 const verifyJWT=require('./middleware/verifyJWT');
 const notFoundRouteHandler=require("./middleware/notFoundRouteHandler");
-
+const cors=require('cors');
 const app=epxress();
 
 const PORT=process.env.PORT || 8000
@@ -17,6 +17,10 @@ app.get('/',(req,res)=>{
 })
 app.use(epxress.json());
 
+app.use(cors({
+    origin: 'http://localhost:5173',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }))
 app.use(cookieParser());
 
 app.use('/api',require('./routes/register'));

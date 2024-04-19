@@ -1,4 +1,6 @@
 const  Student=require("../model/studentModal");
+
+const UserDTO=require("../dto/userDto");
 const viewStudentByTeacher=async(req,res,next)=>{
     
 
@@ -6,7 +8,8 @@ const viewStudentByTeacher=async(req,res,next)=>{
         
         let student=await Student.find();
 
-        res.status(200).json({Data:student});
+        let dto=student.map(student => new UserDTO(student));
+        res.status(200).json({Data:dto});
 
     } catch (error) {
         return next(error);

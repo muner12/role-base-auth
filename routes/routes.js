@@ -7,7 +7,7 @@ const verifyRols=require('../middleware/verifyRole');
 const assignRoleController=require('../controller/assignRoleController');
 const ViewUserController=require('../controller/viewUserController');
 const viewStudentByTeacher = require('../controller/viewStudentByTeacherController');
-
+const AttendanceController=require('../controller/AttendanceController');
 
 
 //userRoutes
@@ -23,5 +23,10 @@ router.route('/allUserData').post(verifyRols(ROLS_LIST.SuperAdmin),ViewUserContr
 
 router.route('/assignRole').post(verifyRols(ROLS_LIST.SuperAdmin),assignRoleController.assignRoleHandler);
 router.route('/deleteRole').post(verifyRols(ROLS_LIST.SuperAdmin),assignRoleController.deleteRoleHandler);
+
+//attendance Route
+router.route('/studentAttendance').post(verifyRols(ROLS_LIST.Student),AttendanceController.AttendanceController);
+router.route('/viewStudentAttendance').post(verifyRols(ROLS_LIST.Student),AttendanceController.viewAttendance);
+
 
 module.exports=router

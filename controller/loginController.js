@@ -124,8 +124,8 @@ let studentLogin=async(req,res,next)=>{
     if(match){
         let roles=fondUser.roles
         roles=[roles];
-        const refreshToken=JWTServices.refreshToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '1d');
-        const accessToken=JWTServices.accessToken({ "userInfo":{ "username":fondUser.username, "roles":roles} }, '1h');
+        const refreshToken=JWTServices.refreshToken({ "userInfo":{ "username":fondUser.username,id:fondUser._id, "roles":roles} }, '1d');
+        const accessToken=JWTServices.accessToken({ "userInfo":{ "username":fondUser.username,id:fondUser._id, "roles":roles} }, '1h');
         fondUser.refreshToken=refreshToken
 
         const result=await fondUser.save();
