@@ -41,13 +41,13 @@ const register=async(req,res,next)=>{
 
 try {
     let account;
-let otp;
+    let otp;
      account=await Account.findOne({number:req.body.number});
 
      otp=await OTP.findOne({number:req.body.number});
 
     
-    console.log(account)
+    
    
      if(account){
         if(account.isOTPVerified){
@@ -59,10 +59,11 @@ let otp;
     
             return res.json(
                 {
-                    STATUS:200,
-                    MESSAGE:"Account created successfully Please Verify OTP",
-                    OTP:otp.otp,
-                    DATA:account
+                    STATUS:"SUCCESS",
+                    ERROR_CODE:null,
+                    ERROR_DESCRIPTION:null,
+                    ERROR_FILTER:null,
+                    DB_DATA:{...account._doc,OTP:otp.otp}
                 }
             )
         }
@@ -78,7 +79,7 @@ let otp;
         if(account && !account.isOTPVerified){
         
            await  Account.deleteMany({number:req.body.number,});
-            await OTP.deleteMany({number:req.body.number});
+           await OTP.deleteMany({number:req.body.number});
         
         
         
@@ -137,10 +138,11 @@ try {
    let savedAccount=await newAccont.save(); 
 
     res.json({
-        STATUS:200,
-        MESSAGE:"Account created successfully Please Verify OTP",
-        OTP:otp,
-        DATA:savedAccount
+        STATUS:"SUCCESS",
+        ERROR_CODE:"",
+        ERROR_DESCRIPTION:"",
+        ERROR_FILTER:"",
+        DB_DATA:{...savedAccount._doc,OTP:otp}
     })
 
 } catch (error) {

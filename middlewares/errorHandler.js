@@ -10,8 +10,11 @@ const errorHandler=(error,req,res,next)=>{
     if(error instanceof ValidationError){
 
         return res.status(400).json({
-            ERROR:error.message,
-            STATUS:400
+            STATUS:'FAILED',
+            ERROR_MESSAGE:error.message,
+            ERROR_FILTER:'TECHNICAL_ISSUE',
+            ERROR_CODE:400,
+            DB_DATA:""
             
         })
 
@@ -26,8 +29,11 @@ const errorHandler=(error,req,res,next)=>{
     }
 
     res.status(status).json({
-        ERROR:data.MESSAGE,
-        STATUS:status
+        STATUS:'FAILED',
+        ERROR_MESSAGE:data.MESSAGE,
+        ERROR_CODE:status,
+        ERROR_FILTER:'TECHNICAL_ISSUE',
+        DB_DATA:null
     })
 }
 
