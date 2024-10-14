@@ -56,7 +56,7 @@ router.get('/todos', async (req, res) => {
 });
 
 // 3. Get a single Todo by ID (GET)
-app.get('/todos/:id', async (req, res) => {
+router.get('/todos/:id', async (req, res) => {
     try {
         const todo = await Todo.findById(req.params.id);
         if (!todo) return res.status(404).json({ error: 'Todo not found' });
@@ -67,7 +67,7 @@ app.get('/todos/:id', async (req, res) => {
 });
 
 // 4. Update a Todo by ID (PUT)
-app.put('/todos/:id', async (req, res) => {
+router.put('/todos/:id', async (req, res) => {
     try {
         const { title, description, completed } = req.body;
         const updatedTodo = await Todo.findByIdAndUpdate(
