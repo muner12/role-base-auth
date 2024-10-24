@@ -18,7 +18,7 @@ app.get('/',(req,res)=>{
 app.use(epxress.json());
 
 app.use(cors({
-    origin: ['http://localhost:5173','http://localhost:3000'],
+    origin: ['http://localhost:5173','http://localhost:3000','http://127.0.0.1:5500'],
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }))
 app.use(cookieParser());
