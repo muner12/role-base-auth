@@ -68,6 +68,11 @@ const assignRoleHandler=async(req,res,next)=>{
 
 
     try {
+
+       if(!data.Admin || !data.Editor){
+        return res.status(400).json({"message":"Roles Not provided please select a role"})
+       }
+
         if(data.Admin){
             fondUser.roles.Admin=data.Admin
         }else if(data.Editor){
