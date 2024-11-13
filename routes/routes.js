@@ -11,7 +11,7 @@ const AttendanceController=require('../controller/AttendanceController');
 
 
 //userRoutes
-router.route("/users").post(verifyRols(ROLS_LIST.Admin,ROLS_LIST.User,ROLS_LIST.SuperAdmin),ViewUserController.ViewUserController)
+router.route("/users").post(verifyRols(ROLS_LIST.Admin,ROLS_LIST.SuperAdmin),ViewUserController.ViewUserController)
 //adimin routes
 router.route("/admin").post(verifyRols(ROLS_LIST.Admin),(req,res,next)=>{
     res.status(201).json({"message":"protected routes accessable for only admin!"})
