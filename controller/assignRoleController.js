@@ -5,6 +5,7 @@ const bcrypt=require('bcrypt');
 const assignRoleHandler=async(req,res,next)=>{
 
         const data=req.body
+        console.log(data)
         const cookie=req.cookies;
         //check jwt in cookies
         console.log(data)
@@ -69,9 +70,11 @@ const assignRoleHandler=async(req,res,next)=>{
 
     try {
 
-       if(!data.Admin || !data.Editor){
+        console.log("File ",data.Admin)
+       if(!data?.Admin){
         return res.status(400).json({"message":"Roles Not provided please select a role"})
        }
+
 
         if(data.Admin){
             fondUser.roles.Admin=data.Admin
@@ -80,7 +83,7 @@ const assignRoleHandler=async(req,res,next)=>{
         } 
       let save=await fondUser.save();
 
-      res.status(200).json({"message":data.username+" roles changed successfully!"})
+      res.status(200).json({"message":data.username+" roles changed successfully!",roles:save.roles})
 
     } catch (error) {
         next(error)        
