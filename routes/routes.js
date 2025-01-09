@@ -29,10 +29,7 @@ router.route('/studentAttendance').post(verifyRols(ROLS_LIST.Student),Attendance
 router.route('/viewStudentAttendance').post(verifyRols(ROLS_LIST.Student),AttendanceController.viewAttendance);
 
 
-router.post('/webhook',(req,res)=>{
-    console.log('webhook received',req.body);
-    res.status(200).json({"message":"webhook received"})
-})
+
 
 
 module.exports=router
