@@ -7,12 +7,18 @@ const cookieParser=require('cookie-parser');
 const verifyJWT=require('./middleware/verifyJWT');
 const notFoundRouteHandler=require("./middleware/notFoundRouteHandler");
 const cors=require('cors');
+// Import Swagger documentation
+const { swaggerUi, swaggerSpec } = require('./swagger');
+
 const app=epxress();
 
 const PORT=process.env.PORT || 8000
 dbConnect();
-app.get('/',(req,res)=>{
 
+// Swagger API documentation route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.get('/',(req,res)=>{
     res.status(201).json({"MESSAGE":"GET API FETCHED SUCCESSFULLY"});
 })
 app.use(epxress.json());
@@ -42,5 +48,6 @@ mongoose.connection.once('open',()=>{
     console.log('connected To db')
     app.listen(PORT,()=>{
         console.log('SERVER IS RUNIING ON: http://localhost:'+PORT);
+        console.log(`API Documentation available at: http://localhost:${PORT}/api-docs`);
     });
 })
