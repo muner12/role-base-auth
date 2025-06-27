@@ -8,7 +8,7 @@ const verifyJWT=require('./middleware/verifyJWT');
 const notFoundRouteHandler=require("./middleware/notFoundRouteHandler");
 const cors=require('cors');
 // Import Swagger documentation
-const { swaggerUi, swaggerSpec } = require('./swagger');
+const { swaggerUi, swaggerSpec, swaggerUiOptions } = require('./swagger');
 
 const app=epxress();
 
@@ -16,7 +16,7 @@ const PORT=process.env.PORT || 8000
 dbConnect();
 
 // Swagger API documentation route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
 
 app.get('/',(req,res)=>{
     res.status(201).json({"MESSAGE":"GET API FETCHED SUCCESSFULLY"});

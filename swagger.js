@@ -1,5 +1,12 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const path = require('path');
+const express = require('express');
+const fs = require('fs');
+
+// Get production URL from environment or default to localhost
+const productionUrl = process.env.VERCEL_URL || 'localhost:8000';
+const protocol = productionUrl.includes('localhost') ? 'http' : 'https';
 
 // Swagger definition
 const swaggerOptions = {
@@ -16,8 +23,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:8000',
-        description: 'Development server'
+        url: `${protocol}://${productionUrl}`,
+        description: process.env.VERCEL_URL ? 'Production server' : 'Development server'
       }
     ],
     components: {
@@ -167,7 +174,18 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
+// Custom options to use CDN hosted swagger UI
+const swaggerUiOptions = {
+  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui.min.css',
+  customJs: [
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui-bundle.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui-standalone-preset.min.js'
+  ]
+};
+
+// Export the middleware and spec
 module.exports = {
   swaggerUi,
-  swaggerSpec
+  swaggerSpec,
+  swaggerUiOptions
 };
